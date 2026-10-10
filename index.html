@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trattoria Il Mattarello — sito demo</title>
+<meta name="description" content="Sito dimostrativo di una trattoria inventata, con assistente virtuale in italiano. Realizzato come esempio di lavoro.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c8412b'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23fbf6ee' font-family='Georgia,serif' font-weight='700'%3EM%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Trattoria Il Mattarello — sito demo con assistente virtuale">
+<meta property="og:description" content="Esempio di sito per un ristorante con assistente virtuale in italiano. Attività inventata.">
+<meta name="theme-color" content="#c8412b">
+
+<style>
+:root{--cream:#fbf6ee;--ink:#2b2118;--tomato:#c8412b;--basil:#3f6b3a;--sand:#efe3cf;--muted:#6f6254}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+a{color:inherit}
+.demo-bar{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:8px 16px}
+header{position:sticky;top:0;z-index:10;background:rgba(251,246,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--sand)}
+.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.logo{font-family:Fraunces,serif;font-weight:800;font-size:26px;color:var(--tomato);text-decoration:none}
+.nav ul{display:flex;gap:22px;list-style:none;padding:0}
+.nav a{text-decoration:none;font-weight:500;font-size:15px}
+.btn{display:inline-block;background:var(--tomato);color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:15px;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,65,43,.3)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.hero{max-width:1100px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:70px 20px 60px}
+.hero h1{font-family:Fraunces,serif;font-size:clamp(38px,6vw,64px);line-height:1.02;letter-spacing:-.5px}
+.hero h1 span{color:var(--tomato)}
+.hero p{font-size:18px;color:var(--muted);margin:18px 0 28px;max-width:30em}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.plate{width:100%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 46%,#f1e6d4 47% 60%,#fff 61% 100%);box-shadow:0 30px 60px rgba(43,33,24,.18);position:relative;overflow:hidden}
+.plate svg{position:absolute;inset:18%;width:64%;height:64%;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+section{max-width:1100px;margin:auto;padding:60px 20px}
+h2{font-family:Fraunces,serif;font-size:36px;margin-bottom:8px}
+.lead{color:var(--muted);margin-bottom:28px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--sand);border-radius:18px;padding:22px}
+.card h3{font-family:Fraunces,serif;font-size:21px;display:flex;justify-content:space-between;gap:10px}
+.card h3 small{font-family:Inter;font-size:16px;color:var(--tomato);font-weight:600}
+.card p{color:var(--muted);font-size:15px;margin-top:6px}
+.tag{display:inline-block;font-size:12px;background:#e9f1e6;color:var(--basil);border-radius:999px;padding:2px 10px;margin-top:10px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.box{background:var(--sand);border-radius:18px;padding:26px}
+.box table{width:100%;border-collapse:collapse}
+.box td{padding:6px 0;border-bottom:1px dashed #d9c9ae}
+.box td:last-child{text-align:right;font-weight:600}
+footer{background:var(--ink);color:#d8cdbf;font-size:14px}
+footer .in{max-width:1100px;margin:auto;padding:30px 20px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
+/* chat */
+.chat-fab{position:fixed;right:20px;bottom:20px;z-index:50;background:var(--basil);color:#fff;border:0;border-radius:999px;padding:14px 18px;font-weight:600;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.2);font-size:15px}
+.chat{position:fixed;right:20px;bottom:84px;z-index:50;width:min(370px,calc(100vw - 32px));height:min(520px,calc(100vh - 120px));background:#fff;border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden;transform-origin:bottom right;animation:pop .18s ease-out}
+.chat.open{display:flex}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+.chat-h{background:var(--basil);color:#fff;padding:14px 16px}
+.chat-h b{display:block}
+.chat-h small{opacity:.85}
+.msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:#faf8f4}
+.m{max-width:85%;padding:10px 13px;border-radius:14px;font-size:14.5px;white-space:pre-line}
+.m.bot{background:#fff;border:1px solid var(--sand);align-self:flex-start;border-bottom-left-radius:4px}
+.m.me{background:var(--tomato);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px;background:#faf8f4}
+.chips button{border:1px solid var(--sand);background:#fff;border-radius:999px;padding:6px 10px;font-size:13px;cursor:pointer}
+.chat form{display:flex;border-top:1px solid var(--sand)}
+.chat input{flex:1;border:0;padding:14px;font:inherit}
+.chat input:focus-visible{outline:2px solid var(--basil);outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){.plate svg{animation:none}html{scroll-behavior:auto}}
+.chat form button{border:0;background:transparent;color:var(--basil);font-weight:700;padding:0 16px;cursor:pointer}
+.ai-note{font-size:11.5px;color:var(--muted);padding:6px 14px;background:#fff;border-top:1px solid var(--sand)}
+.typing{opacity:.6;font-style:italic}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:40px}.plate{max-width:320px;margin:auto}.cards{grid-template-columns:1fr}.info{grid-template-columns:1fr}.nav ul{display:none}}
+</style>
+</head>
+<body>
+<div class="demo-bar">Sito dimostrativo: la trattoria è inventata. Esempio di lavoro di jordiledda su Fiverr (sito + assistente in italiano).</div>
+<header><nav class="nav"><a class="logo" href="#">Il Mattarello</a><ul><li><a href="#menu">Menù</a></li><li><a href="#info">Orari</a></li><li><a href="#prenota">Prenota</a></li></ul><a class="btn" href="#prenota">Prenota un tavolo</a></nav></header>
+
+<div class="hero">
+  <div>
+    <h1>Pasta fresca, <span>tirata a mano</span> ogni mattina.</h1>
+    <p>Una piccola trattoria di quartiere: sei formati di pasta fatti in casa, sughi della tradizione e un tiramisù che non cambiamo da vent'anni.</p>
+    <div class="ctas"><a class="btn" href="#prenota">Prenota</a><a class="btn ghost" href="#menu">Guarda il menù</a></div>
+  </div>
+  <div class="plate" aria-hidden="true">
+    <svg viewBox="0 0 200 200"><g fill="none" stroke="#e9b84a" stroke-width="7" stroke-linecap="round">
+      <path d="M40 100c20-40 100-40 120 0s-100 40-120 0"/><path d="M50 90c30-30 80-30 100 10"/><path d="M55 115c25 25 80 25 95-10"/><path d="M70 80c20-15 50-10 65 15"/><path d="M65 125c20 10 55 8 70-20"/>
+    </g><g fill="#c8412b"><circle cx="85" cy="95" r="9"/><circle cx="118" cy="108" r="8"/><circle cx="104" cy="82" r="6"/></g><g fill="#3f6b3a"><ellipse cx="100" cy="100" rx="10" ry="5" transform="rotate(-30 100 100)"/></g></svg>
+  </div>
+</div>
+
+<section id="menu">
+  <h2>Il menù</h2><p class="lead">Una selezione. Il menù completo cambia con le stagioni.</p>
+  <div class="cards">
+    <div class="card"><h3>Tagliatelle al ragù <small>€12</small></h3><p>Ragù cotto sei ore, parmigiano 24 mesi.</p><span class="tag">La più richiesta</span></div>
+    <div class="card"><h3>Cacio e pepe <small>€11</small></h3><p>Tonnarelli, pecorino romano, pepe tostato.</p><span class="tag">Vegetariana</span></div>
+    <div class="card"><h3>Trofie al pesto <small>€11</small></h3><p>Pesto fatto al mortaio, fagiolini e patate.</p><span class="tag">Vegetariana</span></div>
+    <div class="card"><h3>Ravioli di zucca <small>€13</small></h3><p>Burro e salvia, amaretto sbriciolato.</p><span class="tag">Autunno</span></div>
+    <div class="card"><h3>Pasta senza glutine <small>+€2</small></h3><p>Disponibile per tutti i sughi su richiesta.</p><span class="tag">Senza glutine</span></div>
+    <div class="card"><h3>Tiramisù della casa <small>€6</small></h3><p>Mascarpone, savoiardi, caffè della moka.</p></div>
+  </div>
+</section>
+
+<section id="info"><div class="info">
+  <div class="box"><h2>Orari</h2><table>
+    <tr><td>Lunedì</td><td>Chiuso</td></tr><tr><td>Martedì – Venerdì</td><td>12:30–14:30 · 19:30–23:00</td></tr><tr><td>Sabato – Domenica</td><td>12:30–15:00 · 19:00–23:30</td></tr></table></div>
+  <div class="box" id="prenota"><h2>Prenota</h2><p class="lead" style="margin-bottom:14px">Chiedi all'assistente in basso a destra: raccoglie la richiesta e lo staff ti conferma. Oppure chiama lo 06 000 0000 (numero di esempio).</p><button class="btn" onclick="openChat('Vorrei prenotare')">Prenota con l'assistente</button></div>
+</div></section>
+
+<footer><div class="in"><span>Il Mattarello · Via dell'Esempio 1, Roma (indirizzo fittizio)</span><span>Questo sito non usa cookie né raccoglie dati. Demo realizzata a scopo dimostrativo.</span></div></footer>
+
+<button class="chat-fab" id="fab" aria-expanded="false" aria-controls="chat" onclick="toggleChat()">💬 Hai una domanda?</button>
+<div class="chat" id="chat" role="dialog" aria-label="Assistente virtuale">
+  <div class="chat-h"><b>Assistente del Mattarello</b><small>Assistente virtuale · risponde in italiano</small></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form id="f"><input id="q" aria-label="Scrivi una domanda" placeholder="Scrivi una domanda…" autocomplete="off"><button>Invia</button></form>
+  <div class="ai-note">Stai parlando con un assistente virtuale, non con una persona. In questa demo le risposte sono preimpostate; nella versione reale usa un modello AI che usa le informazioni del locale.</div>
+</div>
+
+<script>
+const KB=[
+ {k:['orari','orario','aperti','apertura','chiuso','quando','open','hours'],a:"Siamo aperti da martedì a domenica.\nMar–Ven: 12:30–14:30 e 19:30–23:00\nSab–Dom: 12:30–15:00 e 19:00–23:30\nIl lunedì siamo chiusi."},
+ {k:['prenot','tavolo','posto','book','reserve'],a:"Volentieri! Dimmi in un messaggio: giorno, ora e numero di persone (es. \"sabato 20:30, 4 persone\"). Passo la richiesta allo staff, che ti conferma.",act:'booking'},
+ {k:['glutine','celiac','gluten'],a:"Sì: abbiamo pasta senza glutine per tutti i sughi (+€2). Avvisa lo staff all'arrivo per la preparazione separata."},
+ {k:['vegetarian','vegano','vegan','carne'],a:"Piatti vegetariani: cacio e pepe, trofie al pesto, ravioli di zucca. Per opzioni vegane chiedi allo staff: alcuni sughi si possono adattare."},
+ {k:['menu','menù','piatti','mangiare','prezzi','prezzo','costa'],a:"Qualche piatto: tagliatelle al ragù €12, cacio e pepe €11, trofie al pesto €11, ravioli di zucca €13, tiramisù €6. Trovi la selezione nella sezione Menù."},
+ {k:['dove','indirizzo','parcheggio','arrivare','where'],a:"Siamo in Via dell'Esempio 1, Roma (indirizzo di esempio: è una demo). C'è un parcheggio pubblico a 200 metri."},
+ {k:['cane','cani','animali','dog'],a:"I cani di piccola taglia sono i benvenuti in sala esterna."},
+ {k:['asporto','take away','domicilio','delivery'],a:"Facciamo asporto: ordina al telefono e passa a ritirare. Niente consegne a domicilio per ora."},
+ {k:['umano','persona','staff','operatore','human'],a:"Certo, ti metto in contatto con lo staff: lascia nome e numero o email e ti ricontattano. (In questa demo il messaggio non viene inviato davvero.)"}
+];
+const msgs=document.getElementById('msgs'),chat=document.getElementById('chat'),chips=document.getElementById('chips');
+let state=null,greeted=false;
+function add(t,who){const d=document.createElement('div');d.className='m '+who;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
+function bot(t){const ty=add('sta scrivendo…','bot typing');setTimeout(()=>{ty.remove();add(t,'bot')},550)}
+function setChips(list){chips.innerHTML='';list.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>send(c);chips.appendChild(b)})}
+function greet(){if(greeted)return;greeted=true;add("Ciao! Sono l'assistente virtuale del Mattarello. Posso dirti orari, menù, opzioni senza glutine o raccogliere una richiesta di prenotazione.",'bot');setChips(['Orari','Prenota un tavolo','Senza glutine','Parlare con una persona'])}
+function toggleChat(){chat.classList.toggle('open');document.getElementById('fab').setAttribute('aria-expanded',chat.classList.contains('open'));if(chat.classList.contains('open')){greet();document.getElementById('q').focus()}}
+function openChat(t){if(!chat.classList.contains('open'))toggleChat();if(t)setTimeout(()=>send(t),300)}
+function answer(q){
+ const s=q.toLowerCase();
+ if(state==='booking'&&!/\d/.test(s))state=null;
+ if(state==='booking'){
+   state=null;
+   return "Perfetto, ho preparato la richiesta:\n• "+q+"\nLo staff ti conferma a breve. (Demo: la richiesta non viene inviata. Nella versione reale arriva al ristorante via email o WhatsApp e finisce in un foglio Google.)";
+ }
+ if(/(\d{1,2})[:.](\d{2})/.test(s)&&/(persone|pers|people|ospiti|\d+\s*$)/.test(s)){state='booking';return answer(q)}
+ for(const e of KB){if(e.k.some(k=>s.includes(k))){if(e.act)state=e.act;return e.a}}
+ return "Non sono sicuro di aver capito. Posso aiutarti con orari, menù, senza glutine, prenotazioni, oppure metterti in contatto con lo staff.";
+}
+function send(t){const q=(t||'').trim();if(!q)return;add(q,'me');bot(answer(q))}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&chat.classList.contains('open'))toggleChat()});
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const i=document.getElementById('q');send(i.value);i.value=''};
+</script>
+</body>
+</html>
